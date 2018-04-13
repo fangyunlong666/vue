@@ -215,6 +215,10 @@ vue_esm["a" /* default */].use(vue_router_esm["a" /* default */]);
     component: src_components_HelloWorld
   }]
 }));
+// CONCATENATED MODULE: ./src/a.js
+/* harmony default export */ var a = (() => {
+	console.log(66666);
+});
 // CONCATENATED MODULE: ./src/main.js
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
@@ -222,6 +226,7 @@ vue_esm["a" /* default */].use(vue_router_esm["a" /* default */]);
 
 
 
+a();
 vue_esm["a" /* default */].config.productionTip = false;
 
 /* eslint-disable no-new */
@@ -242,4 +247,4 @@ new vue_esm["a" /* default */]({
 /***/ })
 
 },["NHnr"]);
-//# sourceMappingURL=app.fbf94a87374fa425c319.js.map
+//# sourceMappingURL=app.eaeb3e635fd0ce9926c7.js.map
