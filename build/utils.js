@@ -76,8 +76,6 @@ exports.cssLoaders = function (options) {
   }
 }
 
-// Generate loaders for standalone style files (outside of .vue)
-
 // 1.这里就直接生成了对应module.rules下的东西，可以直接引用
 exports.styleLoaders = function (options) {
   const output = []

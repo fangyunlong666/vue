@@ -5,9 +5,12 @@ const webpack = require('webpack')
 const config = require('../config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
+// 拷贝插件
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+// 各种解析后会生成style标签，但是还是通过js操作生成的。这个插件的目的是在编译的时候就生成css文件，提高加载速度。
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// 不同的文件可能会引入相同的css文件，用来去除那些重复的文件
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
@@ -25,23 +28,26 @@ const webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
+    publicPath: '.'
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
+    // 配置环境变量
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        compress: {
-          warnings: false
-        }
-      },
-      sourceMap: config.build.productionSourceMap,
-      parallel: true
-    }),
-    // extract css into its own file
+    // 压缩js
+    // new UglifyJsPlugin({
+    //   uglifyOptions: {
+    //     compress: {
+    //       warnings: false
+    //     }
+    //   },
+    //   sourceMap: config.build.productionSourceMap,
+    //   parallel: true
+    // }),
+    // 生成.css文件
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css'),
       // Setting the following option to `false` will not extract CSS from codesplit chunks.
@@ -50,16 +56,13 @@ const webpackConfig = merge(baseWebpackConfig, {
       // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
       allChunks: true,
     }),
-    // Compress extracted CSS. We are using this plugin so that possible
-    // duplicated CSS from different components can be deduped.
+    // 对生成的.css文件去重
     new OptimizeCSSPlugin({
       cssProcessorOptions: config.build.productionSourceMap
         ? { safe: true, map: { inline: false } }
         : { safe: true }
     }),
-    // generate dist index.html with correct asset hash for caching.
-    // you can customize output by editing /index.html
-    // see https://github.com/ampedandwired/html-webpack-plugin
+    // 生成html文件
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
@@ -75,10 +78,13 @@ const webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
     }),
     // keep module.id stable when vendor modules does not change
+    // 当第三方依赖没有修改时，不对其进行打包修改
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting
+    // 提升作用域，号称让代码文件更小、运行更快。没什么软用
     new webpack.optimize.ModuleConcatenationPlugin(),
     // split vendor js into its own file
+    // 提取第三方依赖代码到vender
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks (module) {
@@ -108,7 +114,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       minChunks: 3
     }),
 
-    // copy custom static assets
+    // 拷贝文件夹到指定路径，这里拷贝到指定的静态资源路径
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
