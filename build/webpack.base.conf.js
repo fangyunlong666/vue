@@ -4,7 +4,11 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
+<<<<<<< HEAD
 function resolve(dir) {
+=======
+function resolve (dir) {
+>>>>>>> b5ac4a8988b911f4ec086c1ee78747715d2505fd
   return path.join(__dirname, '..', dir)
 }
 
@@ -37,9 +41,15 @@ module.exports = {
     path: config.build.assetsRoot,
     filename: '[name].js',
     // 资源前缀host
+<<<<<<< HEAD
     publicPath: process.env.NODE_ENV === 'production' ?
       config.build.assetsPublicPath :
       config.dev.assetsPublicPath
+=======
+    publicPath: process.env.NODE_ENV === 'production'
+      ? config.build.assetsPublicPath
+      : config.dev.assetsPublicPath
+>>>>>>> b5ac4a8988b911f4ec086c1ee78747715d2505fd
   },
   // 解析模块的规则
   resolve: {

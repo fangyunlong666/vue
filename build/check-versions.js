@@ -7,7 +7,11 @@ const shell = require('shelljs')
 function exec (cmd) {
   return require('child_process').execSync(cmd).toString().trim()
 }
+<<<<<<< HEAD
 
+=======
+// 有哪些工具库需要版本控制的
+>>>>>>> b5ac4a8988b911f4ec086c1ee78747715d2505fd
 const versionRequirements = [
   {
     name: 'node',
@@ -15,7 +19,11 @@ const versionRequirements = [
     versionRequirement: packageConfig.engines.node
   }
 ]
+<<<<<<< HEAD
 
+=======
+// 是否有npm这个命令
+>>>>>>> b5ac4a8988b911f4ec086c1ee78747715d2505fd
 if (shell.which('npm')) {
   versionRequirements.push({
     name: 'npm',
